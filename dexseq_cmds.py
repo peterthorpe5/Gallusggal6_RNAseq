@@ -67,48 +67,74 @@ rowname = ''
 condition = ''
 libtype = ''
 
+# for al vs all
+##for i in samp:
+##    cond, sampl = i.split("\t")
+##    rowname = rowname + sampl + ", "
+##    condition = condition + cond + ", "
+##    libtype = libtype + "paired-end" + ", "
+##
+##print("""sampleTable = data.frame(
+##   row.names = c(%s\n\n""" % rowname)
+##
+##print("""condition = c(%s\n\n""" % condition)
+##
+##print("""libType = c((%s\n\n""" % libtype)
+##
+print("\n\n condition specific\n")
+
+cp_cmd = 'cp ../Gallus_gallus.GRCg6a.99.exons.gtf ./\ncp ../geneIDsinsubset.txt ./\n'
+
+rowname = ''
+condition = ''
+libtype = ''
 for i in samp:
-    cond, sampl = i.split("\t")
-    rowname = rowname + sampl + ", "
-    condition = condition + cond + ", "
-    libtype = libtype + "paired-end" + ", "
+    if "LIGHTRETLEFT_24H" in i or "LIGHTRETRIGHT_24H" in i:
+        cond, sampl = i.split("\t")
+        rowname = rowname + sampl + "', '"
+        condition = condition + cond + "', '"
+        libtype = libtype + "'paired-end'" + ", "
+        cp_cmd = cp_cmd + "cp ../" + sampl + ".exons.counts ./\n"
 
 print("""sampleTable = data.frame(
-   row.names = c(%s\n\n""" % rowname)
+   row.names = c('%s\n""" % rowname)
 
-print("""condition = c(%s\n\n""" % condition)
+print("""condition = c('%s\n""" % condition.rstrip(","))
 
-print("""libType = c((%s\n\n""" % libtype)
+print("""libType = c(%s)\n""" % libtype.rstrip(","))
+
+print(cp_cmd)
+
 
 
 
 ###
-
-sampleTable = data.frame(
-   row.names = c("DARKRETLEFT_1", "DARKRETLEFT_2", "DARKRETLEFT_3", "DARKRETLEFT_4", "DARKRETLEFT_5", 
-   "DARKRETRIGHT_1", "DARKRETRIGHT_2", "DARKRETRIGHT_3", "DARKRETRIGHT_4", "DARKRETRIGHT_5", "DARKTELLEFT_1", 
-   "DARKTELLEFT_2", "DARKTELLEFT_3", "DARKTELLEFT_4", "DARKTELLEFT_5", "DARKTELRIGHT_1", "DARKTELRIGHT_2",
-   "DARKTELRIGHT_3", "DARKTELRIGHT_4", "DARKTELRIGHT_5", "LIGHTRETLEFT_24H_1", "LIGHTRETLEFT_24H_2", "LIGHTRETLEFT_24H_3", 
-   "LIGHTRETLEFT_24H_4", "LIGHTRETLEFT_24H_5", "LIGHTRETLEFT_6H_1", "LIGHTRETLEFT_6H_2", "LIGHTRETLEFT_6H_3", "LIGHTRETLEFT_6H_4", 
-   "LIGHTRETLEFT_6H_5", "LIGHTRETRIGHT_24H_1", "LIGHTRETRIGHT_24H_2", "LIGHTRETRIGHT_24H_3", "LIGHTRETRIGHT_24H_4", "LIGHTRETRIGHT_24H_5", 
-   "LIGHTRETRIGHT_6H_1", "LIGHTRETRIGHT_6H_2", "LIGHTRETRIGHT_6H_3", "LIGHTRETRIGHT_6H_4", "LIGHTRETRIGHT_6H_5", 
-   "LIGHTTELLEFT_24H_1", "LIGHTTELLEFT_24H_2", "LIGHTTELLEFT_24H_3", "LIGHTTELLEFT_24H_4", "LIGHTTELLEFT_24H_5", "LIGHTTELLEFT_6H_1", 
-   "LIGHTTELLEFT_6H_2", "LIGHTTELLEFT_6H_3", "LIGHTTELLEFT_6H_4", "LIGHTTELLEFT_6H_5", "LIGHTTELRIGHT_24H_1", "LIGHTTELRIGHT_24H_2",
-   "LIGHTTELRIGHT_24H_3", "LIGHTTELRIGHT_24H_4", "LIGHTTELRIGHT_24H_5", "LIGHTTELRIGHT_6H_1", "LIGHTTELRIGHT_6H_2", "LIGHTTELRIGHT_6H_3", 
-   "LIGHTTELRIGHT_6H_4", "LIGHTTELRIGHT_6H_5"),
-   condition = c("DARKRETLEFT",  "DARKRETLEFT",  "DARKRETLEFT",  "DARKRETLEFT",  "DARKRETLEFT",  "DARKRETRIGHT",  "DARKRETRIGHT",  
-   "DARKRETRIGHT",  "DARKRETRIGHT",  "DARKRETRIGHT",  "DARKTELLEFT",  "DARKTELLEFT",  "DARKTELLEFT",  "DARKTELLEFT",  "DARKTELLEFT",  
-   "DARKTELRIGHT",  "DARKTELRIGHT",  "DARKTELRIGHT",  "DARKTELRIGHT",  "DARKTELRIGHT",  "LIGHTRETLEFT_24H",  "LIGHTRETLEFT_24H",  
-   "LIGHTRETLEFT_24H",  "LIGHTRETLEFT_24H",  "LIGHTRETLEFT_24H",  "LIGHTRETLEFT_6H",  "LIGHTRETLEFT_6H",  "LIGHTRETLEFT_6H",  "LIGHTRETLEFT_6H",  
-   "LIGHTRETLEFT_6H",  "LIGHTRETRIGHT_24H",  "LIGHTRETRIGHT_24H",  "LIGHTRETRIGHT_24H",  "LIGHTRETRIGHT_24H",  "LIGHTRETRIGHT_24H", 
-   "LIGHTRETRIGHT_6H",  "LIGHTRETRIGHT_6H",  "LIGHTRETRIGHT_6H",  "LIGHTRETRIGHT_6H",  "LIGHTRETRIGHT_6H",  "LIGHTTELLEFT_24H", 
-   "LIGHTTELLEFT_24H",  "LIGHTTELLEFT_24H",  "LIGHTTELLEFT_24H",  "LIGHTTELLEFT_24H",  "LIGHTTELLEFT_6H",  "LIGHTTELLEFT_6H",  
-   "LIGHTTELLEFT_6H",  "LIGHTTELLEFT_6H",  "LIGHTTELLEFT_6H",  "LIGHTTELRIGHT_24H",  "LIGHTTELRIGHT_24H",  "LIGHTTELRIGHT_24H", 
-   "LIGHTTELRIGHT_24H",  "LIGHTTELRIGHT_24H",  "LIGHTTELRIGHT_6H",  "LIGHTTELRIGHT_6H",  "LIGHTTELRIGHT_6H",  "LIGHTTELRIGHT_6H", 
-   "LIGHTTELRIGHT_6H"),
-   libType = c("paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end",
-   "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", 
-   "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end",
-   "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", 
-   "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", 
-   "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end"))
+##all_vs_all
+##sampleTable = data.frame(
+##   row.names = c("DARKRETLEFT_1", "DARKRETLEFT_2", "DARKRETLEFT_3", "DARKRETLEFT_4", "DARKRETLEFT_5", 
+##   "DARKRETRIGHT_1", "DARKRETRIGHT_2", "DARKRETRIGHT_3", "DARKRETRIGHT_4", "DARKRETRIGHT_5", "DARKTELLEFT_1", 
+##   "DARKTELLEFT_2", "DARKTELLEFT_3", "DARKTELLEFT_4", "DARKTELLEFT_5", "DARKTELRIGHT_1", "DARKTELRIGHT_2",
+##   "DARKTELRIGHT_3", "DARKTELRIGHT_4", "DARKTELRIGHT_5", "LIGHTRETLEFT_24H_1", "LIGHTRETLEFT_24H_2", "LIGHTRETLEFT_24H_3", 
+##   "LIGHTRETLEFT_24H_4", "LIGHTRETLEFT_24H_5", "LIGHTRETLEFT_6H_1", "LIGHTRETLEFT_6H_2", "LIGHTRETLEFT_6H_3", "LIGHTRETLEFT_6H_4", 
+##   "LIGHTRETLEFT_6H_5", "LIGHTRETRIGHT_24H_1", "LIGHTRETRIGHT_24H_2", "LIGHTRETRIGHT_24H_3", "LIGHTRETRIGHT_24H_4", "LIGHTRETRIGHT_24H_5", 
+##   "LIGHTRETRIGHT_6H_1", "LIGHTRETRIGHT_6H_2", "LIGHTRETRIGHT_6H_3", "LIGHTRETRIGHT_6H_4", "LIGHTRETRIGHT_6H_5", 
+##   "LIGHTTELLEFT_24H_1", "LIGHTTELLEFT_24H_2", "LIGHTTELLEFT_24H_3", "LIGHTTELLEFT_24H_4", "LIGHTTELLEFT_24H_5", "LIGHTTELLEFT_6H_1", 
+##   "LIGHTTELLEFT_6H_2", "LIGHTTELLEFT_6H_3", "LIGHTTELLEFT_6H_4", "LIGHTTELLEFT_6H_5", "LIGHTTELRIGHT_24H_1", "LIGHTTELRIGHT_24H_2",
+##   "LIGHTTELRIGHT_24H_3", "LIGHTTELRIGHT_24H_4", "LIGHTTELRIGHT_24H_5", "LIGHTTELRIGHT_6H_1", "LIGHTTELRIGHT_6H_2", "LIGHTTELRIGHT_6H_3", 
+##   "LIGHTTELRIGHT_6H_4", "LIGHTTELRIGHT_6H_5"),
+##   condition = c("DARKRETLEFT",  "DARKRETLEFT",  "DARKRETLEFT",  "DARKRETLEFT",  "DARKRETLEFT",  "DARKRETRIGHT",  "DARKRETRIGHT",  
+##   "DARKRETRIGHT",  "DARKRETRIGHT",  "DARKRETRIGHT",  "DARKTELLEFT",  "DARKTELLEFT",  "DARKTELLEFT",  "DARKTELLEFT",  "DARKTELLEFT",  
+##   "DARKTELRIGHT",  "DARKTELRIGHT",  "DARKTELRIGHT",  "DARKTELRIGHT",  "DARKTELRIGHT",  "LIGHTRETLEFT_24H",  "LIGHTRETLEFT_24H",  
+##   "LIGHTRETLEFT_24H",  "LIGHTRETLEFT_24H",  "LIGHTRETLEFT_24H",  "LIGHTRETLEFT_6H",  "LIGHTRETLEFT_6H",  "LIGHTRETLEFT_6H",  "LIGHTRETLEFT_6H",  
+##   "LIGHTRETLEFT_6H",  "LIGHTRETRIGHT_24H",  "LIGHTRETRIGHT_24H",  "LIGHTRETRIGHT_24H",  "LIGHTRETRIGHT_24H",  "LIGHTRETRIGHT_24H", 
+##   "LIGHTRETRIGHT_6H",  "LIGHTRETRIGHT_6H",  "LIGHTRETRIGHT_6H",  "LIGHTRETRIGHT_6H",  "LIGHTRETRIGHT_6H",  "LIGHTTELLEFT_24H", 
+##   "LIGHTTELLEFT_24H",  "LIGHTTELLEFT_24H",  "LIGHTTELLEFT_24H",  "LIGHTTELLEFT_24H",  "LIGHTTELLEFT_6H",  "LIGHTTELLEFT_6H",  
+##   "LIGHTTELLEFT_6H",  "LIGHTTELLEFT_6H",  "LIGHTTELLEFT_6H",  "LIGHTTELRIGHT_24H",  "LIGHTTELRIGHT_24H",  "LIGHTTELRIGHT_24H", 
+##   "LIGHTTELRIGHT_24H",  "LIGHTTELRIGHT_24H",  "LIGHTTELRIGHT_6H",  "LIGHTTELRIGHT_6H",  "LIGHTTELRIGHT_6H",  "LIGHTTELRIGHT_6H", 
+##   "LIGHTTELRIGHT_6H"),
+##   libType = c("paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end",
+##   "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", 
+##   "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end",
+##   "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", 
+##   "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", 
+##   "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end"))
