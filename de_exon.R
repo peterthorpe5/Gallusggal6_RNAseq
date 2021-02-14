@@ -1,7 +1,7 @@
 # R
 # prepare the exons using the py sxcript from https://bioconductor.org/packages/3.10/bioc/vignettes/DEXSeq/inst/doc/DEXSeq.html
 
-inDir = '/storage/home/users/pjt6/chicken_data/bam_files/R_Light_vs_darf_tel'
+inDir = '/storage/home/users/pjt6/chicken_data/bam_files/'
 
 countFiles = list.files(inDir, pattern=".exons.counts$", full.names=TRUE)
 
@@ -12,34 +12,34 @@ flattenedFile = list.files(inDir, pattern="gtf$", full.names=TRUE)
 basename(flattenedFile)
 
 # all vs all - too much for what we want. Took 2 weeks to run!!
-#sampleTable = data.frame(
-#   row.names = c("DARKRETLEFT_1", "DARKRETLEFT_2", "DARKRETLEFT_3", "DARKRETLEFT_4", "DARKRETLEFT_5", 
-#   "DARKRETRIGHT_1", "DARKRETRIGHT_2", "DARKRETRIGHT_3", "DARKRETRIGHT_4", "DARKRETRIGHT_5", "DARKTELLEFT_1", 
-#   "DARKTELLEFT_2", "DARKTELLEFT_3", "DARKTELLEFT_4", "DARKTELLEFT_5", "DARKTELRIGHT_1", "DARKTELRIGHT_2",
-#   "DARKTELRIGHT_3", "DARKTELRIGHT_4", "DARKTELRIGHT_5", "LIGHTRETLEFT_24H_1", "LIGHTRETLEFT_24H_2", "LIGHTRETLEFT_24H_3", 
-#   "LIGHTRETLEFT_24H_4", "LIGHTRETLEFT_24H_5", "LIGHTRETLEFT_6H_1", "LIGHTRETLEFT_6H_2", "LIGHTRETLEFT_6H_3", "LIGHTRETLEFT_6H_4", 
-#   "LIGHTRETLEFT_6H_5", "LIGHTRETRIGHT_24H_1", "LIGHTRETRIGHT_24H_2", "LIGHTRETRIGHT_24H_3", "LIGHTRETRIGHT_24H_4", "LIGHTRETRIGHT_24H_5", 
-#   "LIGHTRETRIGHT_6H_1", "LIGHTRETRIGHT_6H_2", "LIGHTRETRIGHT_6H_3", "LIGHTRETRIGHT_6H_4", "LIGHTRETRIGHT_6H_5", 
-#   "LIGHTTELLEFT_24H_1", "LIGHTTELLEFT_24H_2", "LIGHTTELLEFT_24H_3", "LIGHTTELLEFT_24H_4", "LIGHTTELLEFT_24H_5", "LIGHTTELLEFT_6H_1", 
-#   "LIGHTTELLEFT_6H_2", "LIGHTTELLEFT_6H_3", "LIGHTTELLEFT_6H_4", "LIGHTTELLEFT_6H_5", "LIGHTTELRIGHT_24H_1", "LIGHTTELRIGHT_24H_2",
-#   "LIGHTTELRIGHT_24H_3", "LIGHTTELRIGHT_24H_4", "LIGHTTELRIGHT_24H_5", "LIGHTTELRIGHT_6H_1", "LIGHTTELRIGHT_6H_2", "LIGHTTELRIGHT_6H_3", 
-#   "LIGHTTELRIGHT_6H_4", "LIGHTTELRIGHT_6H_5"),
-#   condition = c("DARKRETLEFT",  "DARKRETLEFT",  "DARKRETLEFT",  "DARKRETLEFT",  "DARKRETLEFT",  "DARKRETRIGHT",  "DARKRETRIGHT",  
-#   "DARKRETRIGHT",  "DARKRETRIGHT",  "DARKRETRIGHT",  "DARKTELLEFT",  "DARKTELLEFT",  "DARKTELLEFT",  "DARKTELLEFT",  "DARKTELLEFT",  
-#   "DARKTELRIGHT",  "DARKTELRIGHT",  "DARKTELRIGHT",  "DARKTELRIGHT",  "DARKTELRIGHT",  "LIGHTRETLEFT_24H",  "LIGHTRETLEFT_24H",  
-#   "LIGHTRETLEFT_24H",  "LIGHTRETLEFT_24H",  "LIGHTRETLEFT_24H",  "LIGHTRETLEFT_6H",  "LIGHTRETLEFT_6H",  "LIGHTRETLEFT_6H",  "LIGHTRETLEFT_6H",  
-#   "LIGHTRETLEFT_6H",  "LIGHTRETRIGHT_24H",  "LIGHTRETRIGHT_24H",  "LIGHTRETRIGHT_24H",  "LIGHTRETRIGHT_24H",  "LIGHTRETRIGHT_24H", 
-#   "LIGHTRETRIGHT_6H",  "LIGHTRETRIGHT_6H",  "LIGHTRETRIGHT_6H",  "LIGHTRETRIGHT_6H",  "LIGHTRETRIGHT_6H",  "LIGHTTELLEFT_24H", 
-#   "LIGHTTELLEFT_24H",  "LIGHTTELLEFT_24H",  "LIGHTTELLEFT_24H",  "LIGHTTELLEFT_24H",  "LIGHTTELLEFT_6H",  "LIGHTTELLEFT_6H",  
-#   "LIGHTTELLEFT_6H",  "LIGHTTELLEFT_6H",  "LIGHTTELLEFT_6H",  "LIGHTTELRIGHT_24H",  "LIGHTTELRIGHT_24H",  "LIGHTTELRIGHT_24H", 
-#   "LIGHTTELRIGHT_24H",  "LIGHTTELRIGHT_24H",  "LIGHTTELRIGHT_6H",  "LIGHTTELRIGHT_6H",  "LIGHTTELRIGHT_6H",  "LIGHTTELRIGHT_6H", 
-#   "LIGHTTELRIGHT_6H"),
-#   libType = c("paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end",
-#   "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", 
-#   "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end",
-#   "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", 
-#   "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", 
-#   "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end"))
+sampleTable = data.frame(
+   row.names = c("DARKRETLEFT_1", "DARKRETLEFT_2", "DARKRETLEFT_3", "DARKRETLEFT_4", "DARKRETLEFT_5", 
+   "DARKRETRIGHT_1", "DARKRETRIGHT_2", "DARKRETRIGHT_3", "DARKRETRIGHT_4", "DARKRETRIGHT_5", "DARKTELLEFT_1", 
+   "DARKTELLEFT_2", "DARKTELLEFT_3", "DARKTELLEFT_4", "DARKTELLEFT_5", "DARKTELRIGHT_1", "DARKTELRIGHT_2",
+   "DARKTELRIGHT_3", "DARKTELRIGHT_4", "DARKTELRIGHT_5", "LIGHTRETLEFT_24H_1", "LIGHTRETLEFT_24H_2", "LIGHTRETLEFT_24H_3", 
+   "LIGHTRETLEFT_24H_4", "LIGHTRETLEFT_24H_5", "LIGHTRETLEFT_6H_1", "LIGHTRETLEFT_6H_2", "LIGHTRETLEFT_6H_3", "LIGHTRETLEFT_6H_4", 
+   "LIGHTRETLEFT_6H_5", "LIGHTRETRIGHT_24H_1", "LIGHTRETRIGHT_24H_2", "LIGHTRETRIGHT_24H_3", "LIGHTRETRIGHT_24H_4", "LIGHTRETRIGHT_24H_5", 
+   "LIGHTRETRIGHT_6H_1", "LIGHTRETRIGHT_6H_2", "LIGHTRETRIGHT_6H_3", "LIGHTRETRIGHT_6H_4", "LIGHTRETRIGHT_6H_5", 
+   "LIGHTTELLEFT_24H_1", "LIGHTTELLEFT_24H_2", "LIGHTTELLEFT_24H_3", "LIGHTTELLEFT_24H_4", "LIGHTTELLEFT_24H_5", "LIGHTTELLEFT_6H_1", 
+   "LIGHTTELLEFT_6H_2", "LIGHTTELLEFT_6H_3", "LIGHTTELLEFT_6H_4", "LIGHTTELLEFT_6H_5", "LIGHTTELRIGHT_24H_1", "LIGHTTELRIGHT_24H_2",
+   "LIGHTTELRIGHT_24H_3", "LIGHTTELRIGHT_24H_4", "LIGHTTELRIGHT_24H_5", "LIGHTTELRIGHT_6H_1", "LIGHTTELRIGHT_6H_2", "LIGHTTELRIGHT_6H_3", 
+   "LIGHTTELRIGHT_6H_4", "LIGHTTELRIGHT_6H_5"),
+   condition = c("DARKRETLEFT",  "DARKRETLEFT",  "DARKRETLEFT",  "DARKRETLEFT",  "DARKRETLEFT",  "DARKRETRIGHT",  "DARKRETRIGHT",  
+   "DARKRETRIGHT",  "DARKRETRIGHT",  "DARKRETRIGHT",  "DARKTELLEFT",  "DARKTELLEFT",  "DARKTELLEFT",  "DARKTELLEFT",  "DARKTELLEFT",  
+   "DARKTELRIGHT",  "DARKTELRIGHT",  "DARKTELRIGHT",  "DARKTELRIGHT",  "DARKTELRIGHT",  "LIGHTRETLEFT_24H",  "LIGHTRETLEFT_24H",  
+   "LIGHTRETLEFT_24H",  "LIGHTRETLEFT_24H",  "LIGHTRETLEFT_24H",  "LIGHTRETLEFT_6H",  "LIGHTRETLEFT_6H",  "LIGHTRETLEFT_6H",  "LIGHTRETLEFT_6H",  
+   "LIGHTRETLEFT_6H",  "LIGHTRETRIGHT_24H",  "LIGHTRETRIGHT_24H",  "LIGHTRETRIGHT_24H",  "LIGHTRETRIGHT_24H",  "LIGHTRETRIGHT_24H", 
+   "LIGHTRETRIGHT_6H",  "LIGHTRETRIGHT_6H",  "LIGHTRETRIGHT_6H",  "LIGHTRETRIGHT_6H",  "LIGHTRETRIGHT_6H",  "LIGHTTELLEFT_24H", 
+   "LIGHTTELLEFT_24H",  "LIGHTTELLEFT_24H",  "LIGHTTELLEFT_24H",  "LIGHTTELLEFT_24H",  "LIGHTTELLEFT_6H",  "LIGHTTELLEFT_6H",  
+   "LIGHTTELLEFT_6H",  "LIGHTTELLEFT_6H",  "LIGHTTELLEFT_6H",  "LIGHTTELRIGHT_24H",  "LIGHTTELRIGHT_24H",  "LIGHTTELRIGHT_24H", 
+   "LIGHTTELRIGHT_24H",  "LIGHTTELRIGHT_24H",  "LIGHTTELRIGHT_6H",  "LIGHTTELRIGHT_6H",  "LIGHTTELRIGHT_6H",  "LIGHTTELRIGHT_6H", 
+   "LIGHTTELRIGHT_6H"),
+   libType = c("paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end",
+   "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", 
+   "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end",
+   "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", 
+   "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", 
+   "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end", "paired-end"))
 
 
 # RIGHT LIGHT vs DAR TEL
@@ -113,4 +113,5 @@ table ( tapply( dxr1$padj < 0.001, dxr1, any ) )
 
 plotMA(dxr1, cex=0.8)
 
-DEXSeqHTML( dxr1, FDR=0.001)
+#DEXSeqHTML( dxr1, FDR=0.001)
+DEXSeqHTML( dxr1, FDR=0.1)
