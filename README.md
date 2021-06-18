@@ -1,5 +1,5 @@
 # Gallusggal6_RNAseq
-This is a collection of scripts used to interogate RNAseq data. We is used in part for the following publication:
+This is a collection of scripts used to interogate RNAseq data. This was used in part for the following publication:
 
 # Asymmetrical light exposure drives lateralisation through the vascular system and extracellular matrix in the embryonic retina
 
