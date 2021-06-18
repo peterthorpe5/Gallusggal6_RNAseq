@@ -17,5 +17,5 @@ most python scripts requires biopython
 if the script has a help, you can accessit like this:
 `python name_of_scrip.py -h`
 
-The DE exon analysi si too big for the github repo. 
+The DE exon analysi is too big for the github repo. 
 
